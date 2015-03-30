@@ -1,8 +1,19 @@
 <template>
+  <require from="components/featurecard" ></require>
   <section>
     <h2>VoteNow</h2>
-    <table>
-    <tr><td>${feature1.name} ${feature1.description}</td><td>${feature2.name} ${feature2.description}</td></tr>
-    </table>
+    Click on the bigger feature
+    <div class="container">
+	    <div class="row">
+	    	<div class="col-md-6">
+	    		<feature-card feature.bind="feature1"></feature-card>
+		    	
+	    	</div>
+	    	<div class="col-md-6">
+	    		<feature-card feature.bind="feature2"></feature-card>
+	    	</div>
+	    </div>
+    </div>
+   
   </section>
 </template>
