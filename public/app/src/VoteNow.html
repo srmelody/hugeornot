@@ -6,11 +6,11 @@
     <div class="container">
 	    <div class="row">
 	    	<div class="col-md-6">
-	    		<feature-card feature.bind="feature1"></feature-card>
+	    		<feature-card click.delegate="feature1Clicked()" feature.bind="feature1"></feature-card>
 		    	
 	    	</div>
 	    	<div class="col-md-6">
-	    		<feature-card feature.bind="feature2"></feature-card>
+	    		<feature-card click.delegate="feature2Clicked()" feature.bind="feature2"></feature-card>
 	    	</div>
 	    </div>
     </div>

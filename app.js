@@ -22,6 +22,14 @@ app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
+function defaultContentTypeMiddleware (req, res, next) {
+	// This is a hack, I need to figure out how to change aurelia to send the correct content-type
+  req.headers['content-type'] = 'application/json';
+  next();
+}
+
+app.use(defaultContentTypeMiddleware);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
