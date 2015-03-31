@@ -1,6 +1,8 @@
 <template>
   <section>
     <h2>MyVotes</h2>
-    <p>${hello}</p>
+    <ul>
+    	<li repeat.for="vote of votes">${vote.biggerFeature.name} over ${vote.smallerFeature.name}</li>
+    </ul>
   </section>
 </template>

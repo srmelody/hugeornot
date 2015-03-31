@@ -25,6 +25,17 @@ router.post('/api/votes', function( req, res ) {
 	});
 });
 
+
+router.get('/api/votes/me', function( req, res ) {
+
+	console.log("Req", req.body);
+	var user = "sean";
+	voteService.myVotes( user, function( err, data ) {
+		console.log("Vote", data, err );
+		res.status(201).json({votes: data });	
+	});
+});
+
 router.get('/', function(req, res) {
   res.redirect('/app/');
 });

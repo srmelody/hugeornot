@@ -12,8 +12,7 @@ export class App {
         { route: 'votenow', moduleId: './VoteNow', nav:true, title:"Vote Now"},
         { route: 'votedone/:name', moduleId: './votedone', nav:false},
 
-        { route: 'flickr',        moduleId: './flickr',       nav: true },
-        { route: 'child-router',  moduleId: './child-router', nav: true, title:'Child Router' }
+        { route: 'myvotes',        moduleId: './MyVotes',    title: "My Votes",   nav: true }
       ]);
     });
   }

@@ -4,6 +4,8 @@ import {Router} from 'aurelia-router';
 var featuresUrl = "http://localhost:7000/api/features";
 
 var voteUrl = "http://localhost:7000/api/votes";
+var myVotesUrl = "http://localhost:7000/api/votes/me";
+
 export class VoteService {
 	static inject() { return [HttpClient, Router]; }
 
@@ -19,8 +21,8 @@ export class VoteService {
   vote(biggerFeature, smallerFeature) {
   		var payload = {
   			user : "sean",
-  			biggerFeatureId : biggerFeature.id,
-  			smallerFeatureId: smallerFeature.id
+  			biggerFeature: biggerFeature,
+  			smallerFeature: smallerFeature
   		};
   		this.http.post(voteUrl, payload).then( data => {
   			console.log("Done voting");
@@ -34,5 +36,8 @@ export class VoteService {
   	}
   	getFeatures() {
   		return this.http.get(featuresUrl);
+  	}
+  	getMyVotes() {
+  		return this.http.get(myVotesUrl);
   	}
 }
