@@ -1,20 +1,24 @@
 import {HttpClient} from 'aurelia-http-client';
+import {Router} from 'aurelia-router';
+
 var url = "http://localhost:7000/api/features";
 var voteUrl = "http://localhost:7000/api/votes";
 
 export class VoteNow {
 
-	static inject() { return [HttpClient]; }
-	constructor(http){
+	static inject() { return [HttpClient, Router]; }
+	constructor(http, router){
 		this.hello = 'Welcome to the Aurelia Navigation App!';
 
         this.features = [];
     	this.feature1 = {};
     	this.feature2 = {};
 		this.http = http;
+		this.router = router;
 	} 
 
-	activate(){
+	activate(path){
+		var ci = this.router.currentInstruction;
 	  	return this.http.get(url).then(response => {
 	     
 	        this.features = response.content.features;
@@ -35,9 +39,13 @@ export class VoteNow {
   			biggerFeatureId : feature1.id,
   			smallerFeatureId: feature2.id
   		};
-  		this.http.post(voteUrl, payload).then( response => {
+  		this.http.post(voteUrl, payload).then( data => {
   			console.log("Done voting");
-  			
+  			var ci = this.router.currentInstruction;
+  			var id = data.content._id;
+  			var path = 'votenow?last=' + id;
+  			window.location.hash = path;
+  			// this.router.navigate( path );
   		});
   	}
   	getFeatures () {

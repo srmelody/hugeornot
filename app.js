@@ -3,6 +3,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
+var db = require('./lib/db');
+var demoData = require('./lib/demoData');
 
 /*var routes = require('./routes/index');
 var users = require('./routes/users');*/
@@ -47,6 +49,6 @@ var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
 });
 
-
+demoData.load();
 
 module.exports = app;
