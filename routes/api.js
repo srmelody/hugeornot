@@ -3,12 +3,13 @@ var router = express.Router();
 var voteService = require('../services/voteservice');
 var _ = require("lodash");
 var passport = require("passport");
+var authenticated = require('../lib/middleware/authenticated');
 /* GET users listing. */
-router.get('/api/demo', function(req, res) {
+router.get('/demo', function(req, res) {
   res.json({ msg: 'From the Node-Backend'});
 });
 
-router.get('/api/features', function(req, res) {
+router.get('/features', function(req, res) {
 
 	
 	voteService.get( req.body, function( err, data ) {
@@ -17,7 +18,7 @@ router.get('/api/features', function(req, res) {
 	});
 });
 
-router.post('/api/votes', function( req, res ) {
+router.post('/votes', function( req, res ) {
 
 	console.log("Req", req.body);
 	voteService.vote( req.body, function( err, data ) {
@@ -29,16 +30,8 @@ router.post('/api/votes', function( req, res ) {
 
 
 
-router.get("/oauth/redirect", passport.authenticate('oauth2', {failureRedirect: "http://localhost:7000/login"}), function(req, res, next) {
-		console.log("callback from oauth with request path", req.session.requestedPath);
-		next(req, res);
-		//res.redirect(req.session.requestedPath)
-		//delete req.session.requestedPath
-	}
-);
 
-
-router.get('/api/votes/me', function( req, res ) {
+router.get('/votes/me', function( req, res ) {
 
 	console.log("Req", req.body);
 	var user = "sean";
@@ -47,16 +40,18 @@ router.get('/api/votes/me', function( req, res ) {
 		res.status(201).json({votes: data });	
 	});
 });
-router.get('/', function(req, res) {
-  res.redirect('/app/');
-});
+
 
 /* GET welcome view */
 router.get('/views/welcome', function(req, res) {
   res.render('welcome', {nodePort: require('../app').get('port')});
 });
 
-router.get('/oauth/login', passport.authenticate('oauth2'))
+router.get('/oauth/login', passport.authenticate('oauth2'), function( req, res ) {
+	console.log("handling oauth login");
+	res.status(200).json("Awesome");
+});
 
-
+router.all('*', authenticated.isAuthenticated);
+// router.all('*', authenticated.isAuthenticated);
 module.exports = router;

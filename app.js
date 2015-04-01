@@ -46,8 +46,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var api = require('./routes/api');
-app.use('/',   authenticated.isAuthenticated, api);
-app.get('/oauth/login', passport.authenticate('oauth2'));
+app.use('/api', authenticated.isAuthenticated, api);
+var oauth = require("./routes/oauth");
+app.use('/oauth', oauth);
+
+app.get('/', function(req, res) {
+  res.redirect('/app/');
+});
 
 // app.use('/api', );
 // app.use('/api/votes/me',  );
