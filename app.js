@@ -5,7 +5,10 @@ var bodyParser = require('body-parser');
 var swig = require('swig');
 var db = require('./lib/db');
 var demoData = require('./lib/demoData');
-
+var passport = require('passport');
+var session = require('express-session');
+var passportConfig = require('./lib/config/passport');
+var authenticated = require('./lib/middleware/authenticated');
 /*var routes = require('./routes/index');
 var users = require('./routes/users');*/
 
@@ -30,16 +33,25 @@ function defaultContentTypeMiddleware (req, res, next) {
   next();
 }
 
+
 app.use(defaultContentTypeMiddleware);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: 'hugenots in charleston' }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(allowCrossDomain);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var api = require('./routes/api');
-app.use('/', api);
+app.use('/',   authenticated.isAuthenticated, api);
+app.get('/oauth/login', passport.authenticate('oauth2'));
+
+// app.use('/api', );
+// app.use('/api/votes/me',  );
+
 
 var debug = require('debug')('aurelia-node');
 
