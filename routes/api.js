@@ -20,6 +20,15 @@ router.get('/features', function(req, res) {
 	});
 });
 
+router.get('/features/top', function(req, res) {
+
+	
+	featureService.rankFeatures( req.body, function( err, data ) {
+		
+		res.json( {features: data} );
+	});
+});
+
 router.post('/votes', function( req, res ) {
 
 	var user = req.user;

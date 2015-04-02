@@ -1,0 +1,58 @@
+var db = require('../lib/db');
+var voteCollection = db.collection('votes');
+var featureCollection = db.collection('features');
+var _ = require('lodash');
+var async = require('async');
+var mongojs = require("mongojs");
+
+module.exports = {
+	get: function( user, callback ) {
+		featureCollection.find(callback);
+	},
+	rankFeatures: function( data, cb ) {
+		console.log("Ranking features");
+		 return async.auto({
+		 	features: [function(callback) {
+		 		module.exports.get(null, callback);
+		 	}],
+		 	featureIds: ["features", function( callback, arg) {
+		 		var features = arg.features;
+		 		console.log("Features", features);
+		 		var featureIds = _.map(features, function(val) {
+		 			console.log("val type", val);
+		 			return  val.id;
+		 		});
+		 		console.log("mapped feature ids", featureIds);
+		 		callback( null, featureIds) ;
+		 	}],
+		 	votes: ["featureIds", function( callback, arg) {
+		 		console.log("votes");
+		 		var featureIds = arg.featureIds;
+		 		console.log("matching feature ids", featureIds);         
+		 		var agg = 
+		 		[
+		 		{	$match: { "biggerFeature.id" : { $in : featureIds}}},
+		 		{	
+		 			$group: { _id : { name: "$biggerFeature.name", id: "$biggerFeature._id"}, 
+		 			count: { $sum: 1}}}, 
+		 		{
+		 			$sort: {count:-1} 
+				}
+		 			];
+	 			console.log("Aggregating", agg );
+		 		voteCollection.aggregate( agg, callback);
+		 		// voteCollection.find(callback);
+		 	}],
+		 	topFeatures: ["features", "votes", function(callback, arg) {
+		 		callback( null, arg.votes);
+		 	}]
+
+		 }, function(err, arg) {
+		 	console.log("rank features cb", arguments);
+		 	cb(err, arg.topFeatures);
+		 });
+	}
+	
+
+
+};
