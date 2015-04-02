@@ -10,7 +10,7 @@ util = require('util');
 
 winston = require("winston");
 
-
+var mongojs = require("mongojs");
 async = require("async");
 
 _ = require("lodash");
@@ -92,8 +92,8 @@ exports.findByEmail = function(email, callback) {
 };
 
 exports.findById = function(id, callback) {
- 
-  return userCollection.find({_id: id},  callback);
+  
+  return userCollection.find({_id: mongojs.ObjectId(id)},  callback);
 };
 
 exports.changePassword = function(userId, oldPassword, newPassword, callback) {

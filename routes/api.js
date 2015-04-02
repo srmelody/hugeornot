@@ -47,10 +47,6 @@ router.get('/views/welcome', function(req, res) {
   res.render('welcome', {nodePort: require('../app').get('port')});
 });
 
-router.get('/oauth/login', passport.authenticate('oauth2'), function( req, res ) {
-	console.log("handling oauth login");
-	res.status(200).json("Awesome");
-});
 
 router.all('*', authenticated.isAuthenticated);
 // router.all('*', authenticated.isAuthenticated);

@@ -7,9 +7,14 @@ export class MyVotes {
 	    this.voteService = VoteService;
 	    this.votes = [];
 	    this.voteService.getMyVotes().then(response => {
-	     
+	     	
 	       this.votes = response.content.votes;
 
+	    }).catch( err => {
+	    	console.log("Error", err );
+	    	if (err.statusCode) {
+	    		location.href = '/oauth/login';
+	    	}
 	    });
 	}
 	activate(params) {

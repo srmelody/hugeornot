@@ -10,8 +10,9 @@ router.get("test", function(req,res,next) {
 router.get("/redirect", passport.authenticate('oauth2', {failureRedirect: "http://localhost:7000/login"}), function(req, res, next) {
 		console.log("callback from oauth with request path", arguments);
 		//next(req, res);
-		res.json("Awesome", req.isAuthenticated(), req.session);
-		//res.redirect(req.session.requestedPath)
+		//res.json({authenticated: req.isAuthenticated(), session: req.session});
+		res.cookie("access", req.user.accessToken);
+		res.redirect('/')
 		//delete req.session.requestedPath
 	}
 );

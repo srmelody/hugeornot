@@ -1,12 +1,12 @@
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
 var db = require('./lib/db');
 var demoData = require('./lib/demoData');
 var passport = require('passport');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var passportConfig = require('./lib/config/passport');
 var authenticated = require('./lib/middleware/authenticated');
 /*var routes = require('./routes/index');
@@ -38,11 +38,16 @@ app.use(defaultContentTypeMiddleware);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: 'hugenots in charleston' }));
+app.use(session(
+	{ 	name: 'hugeornot.sid',
+		secret: 'hugenots in charleston' ,  
+	  	store: new MongoStore( {url: 'mongodb://localhost:27017/hugeornotDev'} )
+	})
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(allowCrossDomain);
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var api = require('./routes/api');
