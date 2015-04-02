@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var voteService = require('../services/voteservice');
+var featureService = require('../services/featureService');
+
 var _ = require("lodash");
 var passport = require("passport");
 var authenticated = require('../lib/middleware/authenticated');
@@ -12,17 +14,20 @@ router.get('/demo', function(req, res) {
 router.get('/features', function(req, res) {
 
 	
-	voteService.get( req.body, function( err, data ) {
-		console.log("Vote", data, err );
+	featureService.get( req.body, function( err, data ) {
+		
 		res.json( {features: _.shuffle(data)} );
 	});
 });
 
 router.post('/votes', function( req, res ) {
 
-	console.log("Req", req.body);
-	voteService.vote( req.body, function( err, data ) {
-		console.log("Vote", data, err );
+	var user = req.user;
+	console.log("voting as user ", user);
+	var document = _.pick(req.body, ['user', 'biggerFeature', 'smallerFeature']);
+	document.user = user;
+	voteService.vote( document, function( err, data ) {
+		console.log("Vote done", data, err );
 		res.status(201).json(data);	
 	});
 });
@@ -33,10 +38,10 @@ router.post('/votes', function( req, res ) {
 
 router.get('/votes/me', function( req, res ) {
 
-	console.log("Req", req.body);
-	var user = "sean";
+	var user = req.user;
+	console.log("my votes for  user ", user);
 	voteService.myVotes( user, function( err, data ) {
-		console.log("Vote", data, err );
+		console.log("returning votes", data, err );
 		res.status(201).json({votes: data });	
 	});
 });

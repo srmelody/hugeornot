@@ -20,7 +20,7 @@ export class VoteService {
   }
   vote(biggerFeature, smallerFeature) {
   		var payload = {
-  			user : "sean",
+  			
   			biggerFeature: biggerFeature,
   			smallerFeature: smallerFeature
   		};
