@@ -93,7 +93,7 @@ exports.findByEmail = function(email, callback) {
 
 exports.findById = function(id, callback) {
   
-  return userCollection.find({_id: mongojs.ObjectId(id)},  callback);
+  return userCollection.findOne({_id: mongojs.ObjectId(id)},  callback);
 };
 
 exports.changePassword = function(userId, oldPassword, newPassword, callback) {

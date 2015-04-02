@@ -6,12 +6,11 @@ export class App {
   constructor(router) {
     this.router = router;
     this.router.configure(config => {
-      config.title = 'Aurelia';
+      config.title = 'Huge or Not?';
       config.map([
-        { route: ['','welcome'],  moduleId: './welcome',      nav: true, title:'Welcome' },
-        { route: 'votenow', moduleId: './VoteNow', nav:true, title:"Vote Now"},
-        { route: 'votedone/:name', moduleId: './votedone', nav:false},
-
+        { route: ['', 'votenow'], moduleId: './VoteNow', nav:true, title:"Vote Now"},
+        { route: 'votedone/:name/:id', moduleId: './votedone', nav:false},
+        { route: 'topfeatures',        moduleId: './TopFeatures',    title: "Top Features",   nav: true },
         { route: 'myvotes',        moduleId: './MyVotes',    title: "My Votes",   nav: true }
       ]);
     });

@@ -44,7 +44,16 @@ module.exports = {
 		 		// voteCollection.find(callback);
 		 	}],
 		 	topFeatures: ["features", "votes", function(callback, arg) {
-		 		callback( null, arg.votes);
+		 		var topFeatures = _.map(arg.votes, function(val) {
+		 			console.log("mapping top features", val);
+		 			var mappedVal = {
+		 				_id : val._id.id,
+		 				name: val._id.name,
+		 				count: val.count
+		 			};
+		 			return mappedVal;
+		 		});
+		 		callback( null, topFeatures);
 		 	}]
 
 		 }, function(err, arg) {

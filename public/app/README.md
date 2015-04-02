@@ -1,3 +1,9 @@
+Notes:
+DI is a verbose.  Import, static, and constructor param?
+Services ended up being added - not sure if this is my familiarity or a good pattern.  Nothing stopped me from doing this.
+Common error handlers - maybe there could be an http interceptor approach?
+any way to read cookies?
+
 # aurelia-skeleton-navigation
 
 This skeleton is part of the [Aurelia](http://www.aurelia.io/) platform. It sets up a standard navigation-style app using gulp to build your ES6 code with the Babel compiler. Karma/Protractor/Jasmine testing is also configured.

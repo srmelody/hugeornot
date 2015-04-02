@@ -1,9 +1,11 @@
 import {VoteService} from './services/VoteService';
-
+import {REPLACE} from 'aurelia-router';
 
 export class votedone {
 	static inject() { return [VoteService]; }
-
+   determineActivationStrategy(){
+      return REPLACE;
+    }
   constructor(VoteService){
     this.hello = 'Welcome to the Aurelia Navigation App!';
     this.voteService = VoteService;

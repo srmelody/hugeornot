@@ -54,7 +54,7 @@ var api = require('./routes/api');
 app.use('/api', authenticated.isAuthenticated, api);
 var oauth = require("./routes/oauth");
 app.use('/oauth', oauth);
-
+app.all('*', authenticated.setUserCookie);
 app.get('/', function(req, res) {
   res.redirect('/app/');
 });

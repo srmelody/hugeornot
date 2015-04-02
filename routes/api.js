@@ -61,7 +61,8 @@ router.get('/views/welcome', function(req, res) {
   res.render('welcome', {nodePort: require('../app').get('port')});
 });
 
-
+router.all('*', authenticated.setUserCookie);
 router.all('*', authenticated.isAuthenticated);
+
 // router.all('*', authenticated.isAuthenticated);
 module.exports = router;
