@@ -1,8 +1,12 @@
-# Aurelia-Node
+Sean notes:
+Notes:
+DI is a verbose.  Import, static, and constructor param?
+Services ended up being added - not sure if this is my familiarity or a good pattern.  Nothing stopped me from doing this.
+Common error handlers - maybe there could be an http interceptor approach?
+any way to read cookies?
 
-This is a NodeJS Express App bundled with the [Skeleton App](https://github.com/aurelia/skeleton-navigation) of the [Aurelia](http://www.aurelia.io/) platform. It sets up a standard navigation-style app using gulp to build your ES6 code with the babel compiler. Karma/Jasmine testing is also configured.
+Came from https://github.com/zewa666/aurelia-node
 
-For more info please visit the official site: http://www.aurelia.io/
 
 
 ## Running The App
