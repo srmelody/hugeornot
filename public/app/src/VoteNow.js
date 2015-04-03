@@ -33,13 +33,5 @@ export class VoteNow {
   		this.voteService.vote(this.feature2, this.feature1);
   	}
   	
-  	getFeatures () {
-	  	return [{
-	  		name: "Rebuild the hoover dam",
-	  		description: "I think we should rearchitect it."
-	  	}, {
-	  		name: "Give my cat a bath",
-	  		description : "The cat hates water but needs a bath"
-	  	}];
-  }
+  	
 }

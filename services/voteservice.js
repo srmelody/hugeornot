@@ -7,8 +7,8 @@ module.exports = {
 	},
 	
 	vote: function( data, callback ) {
-		var document = _.pick(data, ['user', 'biggerFeature', 'smallerFeature']);
-		voteCollection.save( document, callback );
+		
+		voteCollection.save( data, callback );
 	},
 	myVotes: function( user, callback) {
 		console.log("My votes", user);

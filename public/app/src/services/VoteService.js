@@ -1,11 +1,11 @@
 import {HttpClient} from 'aurelia-http-client';
 import {Router} from 'aurelia-router';
 
-var featuresUrl = "http://localhost:7000/api/features";
-var topFeaturesUrl = "http://localhost:7000/api/features/top";
+var featuresUrl = "/api/features";
+var topFeaturesUrl = "/api/features/top";
 
-var voteUrl = "http://localhost:7000/api/votes";
-var myVotesUrl = "http://localhost:7000/api/votes/me";
+var voteUrl = "/api/votes";
+var myVotesUrl = "/api/votes/me";
 
 export class VoteService {
 	static inject() { return [HttpClient, Router]; }
@@ -16,9 +16,6 @@ export class VoteService {
   	}
 
 
-  hi() {
-  	console.log("hi");
-  }
   vote(biggerFeature, smallerFeature) {
   		var payload = {
   			
@@ -31,7 +28,6 @@ export class VoteService {
   			var id = data.content._id;
   			var name = data.content.name;
   			var path = 'votedone/' + biggerFeature.name + "/" + id;
-  			//window.location.hash = path;
   			this.router.navigate( path, {trigger: true} );
   		});
   	}

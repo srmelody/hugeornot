@@ -19,7 +19,7 @@ exports.getUser = function(accessToken, callback) {
       }
     }, function(err, res, body) {
       var json;
-      winston.debug("err " + err + " res " + res + " body " + body);
+      winston.info("err " + err + " res " + res + " body " + body);
       if (err) {
         return callback(err, null);
       } else {
