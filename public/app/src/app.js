@@ -10,6 +10,7 @@ export class App {
       config.map([
         { route: ['', 'votenow'], moduleId: './VoteNow', nav:true, title:"Vote Now"},
         { route: 'votedone/:name/:id', moduleId: './votedone', nav:false},
+        { route: 'estimatenow',        moduleId: './EstimateNow',    title: "estimate now",   nav: true },
         { route: 'topfeatures',        moduleId: './TopFeatures',    title: "Top Features",   nav: true },
         { route: 'myvotes',        moduleId: './MyVotes',    title: "My Votes",   nav: true }
       ]);

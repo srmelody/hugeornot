@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var voteService = require('../services/voteservice');
+var estimateSessionService = require('../services/estimateSessionService');
+
 var featureService = require('../services/featureService');
 
 var _ = require("lodash");
@@ -13,18 +15,18 @@ router.get('/demo', function(req, res) {
 
 router.get('/features', function(req, res) {
 
-	
+
 	featureService.get( req.body, function( err, data ) {
-		
+
 		res.json( {features: _.shuffle(data)} );
 	});
 });
 
 router.get('/features/top', function(req, res) {
 
-	
+
 	featureService.rankFeatures( req.body, function( err, data ) {
-		
+
 		res.json( {features: data} );
 	});
 });
@@ -37,7 +39,7 @@ router.post('/votes', function( req, res ) {
 	document.user = user;
 	voteService.vote( document, function( err, data ) {
 		console.log("Vote done", data, err );
-		res.status(201).json(data);	
+		res.status(201).json(data);
 	});
 });
 
@@ -51,8 +53,18 @@ router.get('/votes/me', function( req, res ) {
 	console.log("my votes for  user ", user);
 	voteService.myVotes( user, function( err, data ) {
 		console.log("returning votes", data, err );
-		res.status(201).json({votes: data });	
+		res.status(201).json({votes: data });
 	});
+});
+
+
+router.post('/estimatesession', function (req, res) {
+  console.log("calling estimatesession");
+  var estimatesession = req.body.estimatesession
+  console.log("with", req);
+  estimateSessionService.save(estimatesession, function( err, data) {
+    res.status(201).json({estimatesession: data});
+  });
 });
 
 
@@ -64,5 +76,5 @@ router.get('/views/welcome', function(req, res) {
 router.all('*', authenticated.setUserCookie);
 router.all('*', authenticated.isAuthenticated);
 
-// router.all('*', authenticated.isAuthenticated);
+
 module.exports = router;

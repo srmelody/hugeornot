@@ -17,26 +17,22 @@ module.exports = {
 		 	}],
 		 	featureIds: ["features", function( callback, arg) {
 		 		var features = arg.features;
-		 		console.log("Features", features);
 		 		var featureIds = _.map(features, function(val) {
-		 			console.log("val type", val);
 		 			return  val.id;
 		 		});
-		 		console.log("mapped feature ids", featureIds);
+
 		 		callback( null, featureIds) ;
 		 	}],
 		 	votes: ["featureIds", function( callback, arg) {
-		 		console.log("votes");
 		 		var featureIds = arg.featureIds;
-		 		console.log("matching feature ids", featureIds);         
 		 		var agg = 
 		 		[
 		 		{	$match: { "biggerFeature.id" : { $in : featureIds}}},
-		 		{	
-		 			$group: { _id : { name: "$biggerFeature.name", id: "$biggerFeature._id"}, 
-		 			count: { $sum: 1}}}, 
 		 		{
-		 			$sort: {count:-1} 
+		 			$group: { _id : { name: "$biggerFeature.name", id: "$biggerFeature._id"},
+		 			count: { $sum: 1}}},
+		 		{
+		 			$sort: {count:-1}
 				}
 		 			];
 	 			console.log("Aggregating", agg );
@@ -61,7 +57,7 @@ module.exports = {
 		 	cb(err, arg.topFeatures);
 		 });
 	}
-	
+
 
 
 };

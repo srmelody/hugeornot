@@ -5,7 +5,7 @@ request = require("request");
 winston = require("winston");
 
 util = require('util');
-var RALLY_URL = "https://test4cluster.rallydev.com"
+var RALLY_URL = "https://test12cluster.rallydev.com"
 
 exports.getUser = function(accessToken, callback) {
   winston.info("access token " + accessToken);

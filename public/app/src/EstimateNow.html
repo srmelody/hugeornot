@@ -1,0 +1,20 @@
+<template>
+  <section>
+    <h2>Estimate now</h2>
+    <form role="form" submit.delegate="createSession()">
+        Name: <input value.bind="session.name" type="textfield" id="name"></input>
+        Features:
+        <ul>
+          <li repeat.for="feature of features" >
+            <input value.bind="feature._id" checked.bind="session.features" type="checkbox">${feature.name}
+          </li>
+      </ul>
+      </input>
+      <button type="submit" class="btn btn-default">Submit</button>
+
+    </form>
+    <ul>
+    	<li repeat.for="feature of topFeatures">${feature.name} with ${feature.count} head to head votes</li>
+    </ul>
+  </section>
+</template>
